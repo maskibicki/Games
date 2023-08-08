@@ -110,7 +110,7 @@ print("Type:", pokemon_stats["type"])
 
 choices = ["attack", "Attack", "Defend", "Heal", "Run", "defend", "heal", "run"]
 rattatahealth = 60
-battlehealth = 
+
 firstfight = True
 while True:
     print("You encounter a trainer with a Rattata equipped")
