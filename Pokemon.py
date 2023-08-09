@@ -123,7 +123,7 @@ while True:
         if firstattack == "attack" or firstattack == "Attack":
             print(f"You attacked Rattata and dealt {pokemon_stats['attack']} damage")
             rattatahealth -= pokemon_stats["attack"]
-            print(f"Bulbasaur now has {rattatahealth} health")
+            print(f"Rattata now has {rattatahealth} health")
         elif firstattack == "defend" or firstattack == "Defend":
             print("You defended yourself against Rattata's attack that would have dealt 30 damage")
             print(f"You now have {pokemon_stats['health']} health")
@@ -136,7 +136,7 @@ while True:
             print("Not a valid input, it is now Rattatas turn")
 
         if rattatahealth <= 0:
-            print("You defeated Bulbasaur! Congratulations!")
+            print("You defeated Rattata! Congratulations!")
             coins += 10
             xp += 10
             break
@@ -144,13 +144,17 @@ while True:
         print("Now its Rattatas turn")
         if rattatahealth > 0:
             if number == 1:
-                pokemon_stats["health"] -= 30
-                print("Bulbasaur attacked you and dealt 30 damage")
-                print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                if firstattack == "defend" or firstattack == "Defend":
+                    print("Rattata Attacked But You Defended")
+                else:
+                    pokemon_stats["health"] -= 30
+                    print("Rattata attacked you and dealt 30 damage")
+                    print(f"Your {basepoke} now has {pokemon_stats['health']} health")
                 number = random.randint(1, 2)
             if number == 2:
                 if rattatahealth < 40:
                     rattatahealth += 20
+                    print("Rattata Has Healed")
                     print(f"Rattas health is now at {rattatahealth}")
                     number = random.randint(1, 2)
                 else:
@@ -161,21 +165,27 @@ while True:
             print("Your Pokemon fainted. You lost the battle.")
             coins -= 5
             temp += 1
+
             break
 
     if temp == 0:
         print(f"Congratulations, You won your first battle and gained {coins} coins")
+        rattatahealth = 60
     else:
         print(f"Sorry, you lost your first battle and now have {coins} coins")
+        rattatahealth = 60
     
     if xp==xpneeded:
         print(f"Your {basepoke} Has Leveled Up")
         xp = xp - xpneeded
         xpneeded += 10
-        pokemon_stats['hp'] += 10
-        pokemon_stats['attack'] += 10
-        pokemon_stats['defence'] += 10
-        pokemon_stats['health'] == pokemon_stats['hp']
+        if pokemon_stats['hp'] < pokemon_stats['maxhp']:
+            pokemon_stats['hp'] += 10
+        if pokemon_stats['attack'] < pokemon_stats['maxattack']:
+            pokemon_stats['attack'] += 10
+        if pokemon_stats['defence'] < pokemon_stats['maxdefence']:
+            pokemon_stats['defence'] += 10
+        pokemon_stats['health'] = pokemon_stats['hp']
         pokemon_stats['level'] += 1
         print(f"{basepoke} has been leveled up to level {pokemon_stats['level']}")
         print("Pokemon stats:")
@@ -187,7 +197,139 @@ while True:
         print("Max Defence:", pokemon_stats["maxdefence"])
         print("Special:", pokemon_stats["special"])
         print("Health:", pokemon_stats["health"])
+    while True:
+        print(f"Ok {name}, you have proved yourself in the ability to train {basepoke}")
+        input("Press Enter to continue...")
+        print("Now you have the freedom to explore Kanto in its full beauty")
+        input("Press Enter to continue...")
+        print("You can type (1. for evolving your pokemon)")
+        input("Press Enter to continue...")
+        print("Press (2. To go to the arena and fight a pokemon)")
+        input("Press Enter to continue...")
+        print("Press (3. Wander around)")
+        input("Press Enter to continue...")
+        print("Press (4. To check your stats)")
+        input("Press Enter to continue...")
+        print("Press (5. For help)")
+        input("Press Enter to continue...")
+        print("Press (6. To save and exit)")
         break
+  
+    while True:
+        freechoice = input("What action do you want to perform? ")
+        if freechoice == "1":
+            if pokemon_stats["level"] >= 18:
+                if basepoke == "Charmander" or basepoke == "Charmander":
+                    print("Your Charmander Has Evolved Into A Charmeleon")
+                    basepoke = "Charmeleon"
+                if basepoke == "Bulbasaur" or basepoke == "bulbasaur":
+                    print("Your Bulbasaur Has Evolbed Into A Ivysaur")
+                    basepoke = "Ivysaur"
+                if basepoke == "Squirtle" or basepoke == "squirtle":
+                    print("Your Squirtle Has Evolved Into A Warturtle")
+                    basepoke = "Warturtle"
+            elif pokemon_stats["level"] >= 36:
+                if basepoke == "Charmander" or basepoke == "Charmander":
+                    print("Your Charmander Has Evolved Into A Charmeleon And Then Evolved Into A Charzard")
+                    basepoke = "Charzard"
+                if basepoke == "Charmeleon":
+                    print("Your Charmeleon Has Evolved Into A Charzard")
+                if basepoke == "Bulbasaur" or basepoke == "bulbasaur":
+                    print("Your Bulbasaur Has Evolved Into An Ivysaur and Then Evolved Into A Venusaur")
+                    basepoke = "Venusaur"
+                if basepoke == "Ivysaur":
+                    print("Your Ivysaur Has Evolved Into A Venusaur")
+                    basepoke = "Venusaur"
+                if basepoke == "Squirtle" or basepoke == "squirtle":
+                    print("Your Squirtle Has Evolved Into A Warturtle and Then Evolved Into A Blastoise")
+                    basepoke = "Blastoise"
+                if basepoke == "Warturtke":
+                    print("Your Warturtle Has Evolved Into A Blastoise")
+                    basepoke = "Blastoise"
+            else:
+                print("You Cannot Evolve")
+        if freechoice == "2":
+            while True:
+                firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
+                if firstattack == "attack" or firstattack == "Attack":
+                    print(f"You attacked Rattata and dealt {pokemon_stats['attack']} damage")
+                    rattatahealth -= pokemon_stats["attack"]
+                    print(f"Rattata now has {rattatahealth} health")
+                elif firstattack == "defend" or firstattack == "Defend":
+                    print("You defended yourself against Rattata's attack that would have dealt 30 damage")
+                    print(f"You now have {pokemon_stats['health']} health")
+                elif firstattack == "heal" or firstattack == "Heal":
+                        pokemon_stats["health"] += 30
+                        print("Pokemon healed 30")
+                elif firstattack == "run" or firstattack == "Run":
+                    print("You did not successfully run away")
+                else:
+                    print("Not a valid input, it is now Rattatas turn")
 
+                if rattatahealth <= 0:
+                    print("You defeated Rattata! Congratulations!")
+                    coins += 10
+                    xp += 10
+                    rattatahealth = 60
+                    break
 
+                print("Now its Rattatas turn")
+                if rattatahealth > 0:
+                    if number == 1:
+                        if firstattack == "defend" or firstattack == "Defend":
+                            print("Rattata Attacked But You Defended")
+                        else:
+                            pokemon_stats["health"] -= 30
+                            print("Rattata attacked you and dealt 30 damage")
+                            print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                        number = random.randint(1, 2)
+                    if number == 2:
+                        if rattatahealth < 40:
+                            rattatahealth += 20
+                            print("Rattata Has Healed")
+                            print(f"Rattas health is now at {rattatahealth}")
+                            number = random.randint(1, 2)
+                        else:
+                            print("Rattata Tried To Heal But Was Already At Max Health")
+                            number = random.randint(1, 2)
 
+                if pokemon_stats["health"] <= 0:
+                    print("Your Pokemon fainted. You lost the battle.")
+                    coins -= 5
+                    temp += 1
+                    rattatahealth = 60
+                    break
+
+            if temp == 0:
+                print(f"Congratulations, You won your first battle and gained {coins} coins")
+                rattatahealth = (60 * pokemon_stats["level"]) / 4
+                pokemon_stats["health"] = pokemon_stats['hp']
+            else:
+                print(f"Sorry, you lost your first battle and now have {coins} coins")
+                rattatahealth = (60 * pokemon_stats["level"]) / 4
+                pokemon_stats["health"] = pokemon_stats['hp']
+
+            if xp==xpneeded:
+                print(f"Your {basepoke} Has Leveled Up")
+                xp = xp - xpneeded
+                xpneeded += 10
+                if pokemon_stats['hp'] < pokemon_stats['maxhp']:
+                    pokemon_stats['hp'] += 10
+                if pokemon_stats['attack'] < pokemon_stats['maxattack']:
+                    pokemon_stats['attack'] += 10
+                if pokemon_stats['defence'] < pokemon_stats['maxdefence']:
+                    pokemon_stats['defence'] += 10
+                    pokemon_stats['health'] = pokemon_stats['hp']
+                    pokemon_stats['level'] += 1
+                    print(f"{basepoke} has been leveled up to level {pokemon_stats['level']}")
+                    print("Pokemon stats:")
+                    print("HP:", pokemon_stats["hp"])
+                    print("Max HP:", pokemon_stats["maxhp"])
+                    print("Attack:", pokemon_stats["attack"])
+                    print("Max Attack:", pokemon_stats["maxattack"])
+                    print("Defence:", pokemon_stats["defence"])
+                    print("Max Defence:", pokemon_stats["maxdefence"])
+                    print("Special:", pokemon_stats["special"])
+                    print("Health:", pokemon_stats["health"])
+    break
+        
