@@ -36,36 +36,17 @@ level = 5
 temp = 0
 wandermax = 0
 xp = 0
+potions = 5
 xpneeded = 10
+print("Welcome to the world of Pokemon")
+input("Press Enter to continue...")
+print("My name is Oak, but people call me the Pokemon Professor")
+input("Press Enter to continue...")
+print("This world is inhabited by creatures called Pokemon")
+input("Press Enter to continue...")
+print("For some people, Pokemon are pets, but for others, Pokemon are used to fight")
 while True:
-    game = input("Do you want a new game or load saved game: ").lower()
-    if game == "new game" or game == "newgame":
-        print("Welcome to the world of Pokemon")
-        input("Press Enter to continue...")
-        print("My name is Oak, but people call me the Pokemon Professor")
-        input("Press Enter to continue...")
-        print("This world is inhabited by creatures called Pokemon")
-        input("Press Enter to continue...")
-        print("For some people, Pokemon are pets, but for others, Pokemon are used to fight")
-        break
-    elif game in ["load saved game", "savegame", "save game", "loadsavedgame", "load save game", "loadsavegame"]:
-        save_file_name = f"{name.lower()}_save.json"
-        saved_data = load_game_state(save_file_name)
-        if saved_data:
-            coins = saved_data.get("coins", coins)
-            stageprice = saved_data.get("stageprice", stageprice)
-            level = saved_data.get("level", level)
-            temp = saved_data.get("temp", temp)
-            wandermax = saved_data.get("wandermax", wandermax)
-            print("Game loaded successfully!")
-        else:
-            print("No save game found. Starting a new game...")
-        break
-    else:
-        print("Invalid input. Please choose 'new game' or 'load saved game'.")
-        continue
-while True:
-    rivalname = input("This Is Your Friend. What Is Their Name? ")
+    rivalname = input("This Is Your Friend They Are Your Neighbor. What Is Their Name? ")
     yn = input("Your Friends Name Is " +rivalname+ "? Y/N ")
     if yn == "Y" or yn == "y":
         break
@@ -128,8 +109,12 @@ while True:
             print("You defended yourself against Rattata's attack that would have dealt 30 damage")
             print(f"You now have {pokemon_stats['health']} health")
         elif firstattack == "heal" or firstattack == "Heal":
+            if potions > 0:
                 pokemon_stats["health"] += 30
+                potions -= 1
                 print("Pokemon healed 30")
+            else:
+                print("You Dont Have Anymore Potions")
         elif firstattack == "run" or firstattack == "Run":
             print("You did not successfully run away")
         else:
@@ -139,6 +124,7 @@ while True:
             print("You defeated Rattata! Congratulations!")
             coins += 10
             xp += 10
+            temp = 0
             break
 
         print("Now its Rattatas turn")
@@ -150,7 +136,7 @@ while True:
                     pokemon_stats["health"] -= 30
                     print("Rattata attacked you and dealt 30 damage")
                     print(f"Your {basepoke} now has {pokemon_stats['health']} health")
-                number = random.randint(1, 2)
+                    number = random.randint(1, 2)
             if number == 2:
                 if rattatahealth < 40:
                     rattatahealth += 20
@@ -165,14 +151,17 @@ while True:
             print("Your Pokemon fainted. You lost the battle.")
             coins -= 5
             temp += 1
+            rattatahealth = 60
+            pokemon_stats['health'] = pokemon_stats['hp']
+            continue
 
-            break
 
     if temp == 0:
-        print(f"Congratulations, You won your first battle and gained {coins} coins")
+        print(f"Congratulations, You won your first battle and now have {coins} coins")
         rattatahealth = 60
     else:
         print(f"Sorry, you lost your first battle and now have {coins} coins")
+        print("After You Heal Your Pokemon You Go And Face The Trainer Again")
         rattatahealth = 60
     
     if xp==xpneeded:
@@ -208,18 +197,20 @@ while True:
         input("Press Enter to continue...")
         print("Press (3. Wander around)")
         input("Press Enter to continue...")
-        print("Press (4. To check your stats)")
+        print("Press (4. To Explore The Shops)")
         input("Press Enter to continue...")
-        print("Press (5. For help)")
+        print("Press (5. To check your stats)")
         input("Press Enter to continue...")
-        print("Press (6. To save and exit)")
+        print("Press (6. For help)")
+        input("Press Enter to continue...")
+        print("Press (7. To save and exit)")
         break
   
     while True:
         freechoice = input("What action do you want to perform? ")
         if freechoice == "1":
-            if pokemon_stats["level"] >= 18:
-                if basepoke == "Charmander" or basepoke == "Charmander":
+            if pokemon_stats['level'] >= 18:
+                if basepoke == "charmander" or basepoke == "Charmander":
                     print("Your Charmander Has Evolved Into A Charmeleon")
                     basepoke = "Charmeleon"
                 if basepoke == "Bulbasaur" or basepoke == "bulbasaur":
@@ -228,12 +219,13 @@ while True:
                 if basepoke == "Squirtle" or basepoke == "squirtle":
                     print("Your Squirtle Has Evolved Into A Warturtle")
                     basepoke = "Warturtle"
-            elif pokemon_stats["level"] >= 36:
-                if basepoke == "Charmander" or basepoke == "Charmander":
+            if pokemon_stats['level'] >= 36:
+                if basepoke == "charmander" or basepoke == "Charmander":
                     print("Your Charmander Has Evolved Into A Charmeleon And Then Evolved Into A Charzard")
                     basepoke = "Charzard"
                 if basepoke == "Charmeleon":
                     print("Your Charmeleon Has Evolved Into A Charzard")
+                    basepoke = "Charzard"
                 if basepoke == "Bulbasaur" or basepoke == "bulbasaur":
                     print("Your Bulbasaur Has Evolved Into An Ivysaur and Then Evolved Into A Venusaur")
                     basepoke = "Venusaur"
@@ -246,79 +238,260 @@ while True:
                 if basepoke == "Warturtke":
                     print("Your Warturtle Has Evolved Into A Blastoise")
                     basepoke = "Blastoise"
-            else:
+            if pokemon_stats['level'] < 8 or basepoke == "Charzard" or basepoke == "Venusaur" or basepoke == "Blastoise":
                 print("You Cannot Evolve")
         if freechoice == "2":
-            while True:
-                firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
-                if firstattack == "attack" or firstattack == "Attack":
-                    print(f"You attacked Rattata and dealt {pokemon_stats['attack']} damage")
-                    rattatahealth -= pokemon_stats["attack"]
-                    print(f"Rattata now has {rattatahealth} health")
-                elif firstattack == "defend" or firstattack == "Defend":
-                    print("You defended yourself against Rattata's attack that would have dealt 30 damage")
-                    print(f"You now have {pokemon_stats['health']} health")
-                elif firstattack == "heal" or firstattack == "Heal":
-                        pokemon_stats["health"] += 30
-                        print("Pokemon healed 30")
-                elif firstattack == "run" or firstattack == "Run":
-                    print("You did not successfully run away")
-                else:
-                    print("Not a valid input, it is now Rattatas turn")
 
-                if rattatahealth <= 0:
-                    print("You defeated Rattata! Congratulations!")
-                    coins += 10
-                    xp += 10
-                    rattatahealth = 60
-                    break
-
-                print("Now its Rattatas turn")
-                if rattatahealth > 0:
-                    if number == 1:
-                        if firstattack == "defend" or firstattack == "Defend":
-                            print("Rattata Attacked But You Defended")
+            pokemonchoicefree = ["tepig", "kyogre", "sneasler", "poliwhirl"]
+            computerrandpoke = random.choice(pokemonchoicefree)
+            tepighealth = 80
+            tepigattack = 35
+            kygorehealth = 130
+            kygoreattack = 30
+            sneaslerhealth = 120
+            sneaslerattack = 30
+            poliwhirlhealth = 90
+            poliwhirlattack = 30
+            print(f"You Go Into The Arena And A Trainer With A {computerrandpoke} Challenges You")
+            if computerrandpoke == "tepig":
+                while True:
+                
+                    firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
+                    if firstattack == "attack" or firstattack == "Attack":
+                        print(f"You attacked tepig and dealt {pokemon_stats['attack']} damage")
+                        tepighealth -= pokemon_stats["attack"]
+                        print(f"tepig now has {tepighealth} health")
+                    elif firstattack == "defend" or firstattack == "Defend":
+                        print("You defended yourself against tepig's attack that would have dealt 35 damage")
+                        print(f"You now have {pokemon_stats['health']} health")
+                    elif firstattack == "heal" or firstattack == "Heal":
+                        if potions > 0:
+                            pokemon_stats["health"] += 30
+                            potions -= 1
+                            print("Pokemon healed 30")
                         else:
-                            pokemon_stats["health"] -= 30
-                            print("Rattata attacked you and dealt 30 damage")
-                            print(f"Your {basepoke} now has {pokemon_stats['health']} health")
-                        number = random.randint(1, 2)
-                    if number == 2:
-                        if rattatahealth < 40:
-                            rattatahealth += 20
-                            print("Rattata Has Healed")
-                            print(f"Rattas health is now at {rattatahealth}")
-                            number = random.randint(1, 2)
-                        else:
-                            print("Rattata Tried To Heal But Was Already At Max Health")
-                            number = random.randint(1, 2)
+                            print("You Dont Have Anymore Potions")
+                    elif firstattack == "run" or firstattack == "Run":
+                        print("You did not successfully run away")
+                    else:
+                        print("Not a valid input, it is now tepigs turn")
 
-                if pokemon_stats["health"] <= 0:
-                    print("Your Pokemon fainted. You lost the battle.")
-                    coins -= 5
-                    temp += 1
-                    rattatahealth = 60
-                    break
+                    if tepighealth <= 0:
+                        print("You defeated tepig! Congratulations!")
+                        coins += 10
+                        xp += 10
+                        temp = 0
+                        break
+
+                    print("Now its tepig's turn")
+                    if tepighealth > 0:
+                        if number == 1:
+                            if firstattack == "defend" or firstattack == "Defend":
+                                print("tepig Attacked But You Defended")
+                            else:
+                                pokemon_stats["health"] -= 35
+                                print("Rattata attacked you and dealt 35 damage")
+                                print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                                number = random.randint(1, 2)
+                        if number == 2:
+                            if tepighealth < 60:
+                                tepighealth += 20
+                                print("tepig Has Healed")
+                                print(f"tepig health is now at {tepighealth}")
+                                number = random.randint(1, 2)
+                            else:
+                                print("tepig Tried To Heal But Was Already At Max Health")
+                                number = random.randint(1, 2)
+
+                    if pokemon_stats["health"] <= 0:
+                        print("Your Pokemon fainted. You lost the battle.")
+                        coins -= 5
+                        temp += 1
+                        break
+            if computerrandpoke == "kyogre":
+                while True:
+                
+                    firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
+                    if firstattack == "attack" or firstattack == "Attack":
+                        print(f"You attacked {computerrandpoke} and dealt {pokemon_stats['attack']} damage")
+                        kygorehealth -= pokemon_stats["attack"]
+                        print(f"{computerrandpoke} now has {kygorehealth} health")
+                    elif firstattack == "defend" or firstattack == "Defend":
+                        print(f"You defended yourself against {computerrandpoke}'s attack that would have dealt {kygoreattack} damage")
+                        print(f"You now have {pokemon_stats['health']} health")
+                    elif firstattack == "heal" or firstattack == "Heal":
+                        if potions > 0:
+                            pokemon_stats["health"] += 30
+                            potions -= 1
+                            print("Pokemon healed 30")
+                        else:
+                            print("You Dont Have Anymore Potions")
+                    elif firstattack == "run" or firstattack == "Run":
+                        print("You did not successfully run away")
+                    else:
+                        print(f"Not a valid input, it is now {computerrandpoke}'s turn")
+
+                    if kygorehealth <= 0:
+                        print(f"You defeated {computerrandpoke}! Congratulations!")
+                        coins += 10
+                        xp += 40
+                        temp = 0
+                        break
+
+                    print(f"Now its {computerrandpoke}'s turn")
+                    if kygorehealth > 0:
+                        if number == 1:
+                            if firstattack == "defend" or firstattack == "Defend":
+                                print("kogre Attacked But You Defended")
+                            else:
+                                pokemon_stats["health"] -= kygoreattack
+                                print(f"{computerrandpoke} attacked you and dealt {kygoreattack} damage")
+                                print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                                number = random.randint(1, 2)
+                        if number == 2:
+                            if kygorehealth < 110:
+                                kygorehealth += 20
+                                print(f"{computerrandpoke} Has Healed")
+                                print(f"{computerrandpoke} health is now at {kygorehealth}")
+                                number = random.randint(1, 2)
+                            else:
+                                print(f"{computerrandpoke} Tried To Heal But Was Already At Max Health")
+                                number = random.randint(1, 2)
+
+                    if pokemon_stats["health"] <= 0:
+                        print("Your Pokemon fainted. You lost the battle.")
+                        coins -= 5
+                        temp += 1
+                        break
+            if computerrandpoke == "sneasler":
+                while True:
+                
+                    firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
+                    if firstattack == "attack" or firstattack == "Attack":
+                        print(f"You attacked {computerrandpoke} and dealt {pokemon_stats['attack']} damage")
+                        sneaslerhealth -= pokemon_stats["attack"]
+                        print(f"{computerrandpoke} now has {sneaslerhealth} health")
+                    elif firstattack == "defend" or firstattack == "Defend":
+                        print(f"You defended yourself against {computerrandpoke}'s attack that would have dealt {sneaslerattack} damage")
+                        print(f"You now have {pokemon_stats['health']} health")
+                    elif firstattack == "heal" or firstattack == "Heal":
+                        if potions > 0:
+                            pokemon_stats["health"] += 30
+                            potions -= 1
+                            print("Pokemon healed 30")
+                        else:
+                            print("You Dont Have Anymore Potions")
+                    elif firstattack == "run" or firstattack == "Run":
+                        print("You did not successfully run away")
+                    else:
+                        print(f"Not a valid input, it is now {computerrandpoke}'s turn")
+
+                    if sneaslerhealth <= 0:
+                        print(f"You defeated {computerrandpoke}! Congratulations!")
+                        coins += 10
+                        xp += 20
+                        temp = 0
+                        break
+
+                    print(f"Now its {computerrandpoke}'s turn")
+                    if sneaslerhealth > 0:
+                        if number == 1:
+                            if firstattack == "defend" or firstattack == "Defend":
+                                print(f"{computerrandpoke} Attacked But You Defended")
+                            else:
+                                pokemon_stats["health"] -= sneaslerattack
+                                print(f"{computerrandpoke} attacked you and dealt {sneaslerattack} damage")
+                                print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                                number = random.randint(1, 2)
+                        if number == 2:
+                            if sneaslerhealth < 100:
+                                sneaslerhealth += 20
+                                print(f"{computerrandpoke} Has Healed")
+                                print(f"{computerrandpoke} health is now at {sneaslerhealth}")
+                                number = random.randint(1, 2)
+                            else:
+                                print(f"{computerrandpoke} Tried To Heal But Was Already At Max Health")
+                                number = random.randint(1, 2)
+
+                    if pokemon_stats["health"] <= 0:
+                        print("Your Pokemon fainted. You lost the battle.")
+                        coins -= 5
+                        temp += 1
+                        break
+            if computerrandpoke == "poliwhirl":
+                while True:
+                
+                    firstattack = input("What is your move (Attack, Defend, Heal, Run): ").lower()
+                    if firstattack == "attack" or firstattack == "Attack":
+                        print(f"You attacked {computerrandpoke} and dealt {pokemon_stats['attack']} damage")
+                        poliwhirlhealth -= pokemon_stats["attack"]
+                        print(f"{computerrandpoke} now has {poliwhirlhealth} health")
+                    elif firstattack == "defend" or firstattack == "Defend":
+                        print(f"You defended yourself against {computerrandpoke}'s attack that would have dealt {poliwhirlattack} damage")
+                        print(f"You now have {pokemon_stats['health']} health")
+                    elif firstattack == "heal" or firstattack == "Heal":
+                        if potions > 0:
+                            pokemon_stats["health"] += 30
+                            potions -= 1
+                            print("Pokemon healed 30")
+                        else:
+                            print("You Dont Have Anymore Potions")
+                    elif firstattack == "run" or firstattack == "Run":
+                        print("You did not successfully run away")
+                    else:
+                        print(f"Not a valid input, it is now {computerrandpoke}'s turn")
+
+                    if poliwhirlhealth <= 0:
+                        print(f"You defeated {computerrandpoke}! Congratulations!")
+                        coins += 10
+                        xp += 30
+                        temp = 0
+                        break
+
+                    print(f"Now its {computerrandpoke}'s turn")
+                    if poliwhirlhealth > 0:
+                        if number == 1:
+                            if firstattack == "defend" or firstattack == "Defend":
+                                print(f"{computerrandpoke} Attacked But You Defended")
+                            else:
+                                pokemon_stats["health"] -= poliwhirlattack
+                                print(f"{computerrandpoke} attacked you and dealt {sneaslerattack} damage")
+                                print(f"Your {basepoke} now has {pokemon_stats['health']} health")
+                                number = random.randint(1, 2)
+                        if number == 2:
+                            if poliwhirlhealth < 70:
+                                poliwhirlhealth += 20
+                                print(f"{computerrandpoke} Has Healed")
+                                print(f"{computerrandpoke} health is now at {poliwhirlhealth}")
+                                number = random.randint(1, 2)
+                            else:
+                                print(f"{computerrandpoke} Tried To Heal But Was Already At Max Health")
+                                number = random.randint(1, 2)
+
+                    if pokemon_stats["health"] <= 0:
+                        print("Your Pokemon fainted. You lost the battle.")
+                        coins -= 5
+                        temp += 1
+                        break
+
 
             if temp == 0:
-                print(f"Congratulations, You won your first battle and gained {coins} coins")
-                rattatahealth = (60 * pokemon_stats["level"]) / 4
+                print(f"Congratulations, You won your battle and now have {coins} coins")
                 pokemon_stats["health"] = pokemon_stats['hp']
             else:
                 print(f"Sorry, you lost your first battle and now have {coins} coins")
-                rattatahealth = (60 * pokemon_stats["level"]) / 4
                 pokemon_stats["health"] = pokemon_stats['hp']
-
-            if xp==xpneeded:
-                print(f"Your {basepoke} Has Leveled Up")
-                xp = xp - xpneeded
-                xpneeded += 10
-                if pokemon_stats['hp'] < pokemon_stats['maxhp']:
-                    pokemon_stats['hp'] += 10
-                if pokemon_stats['attack'] < pokemon_stats['maxattack']:
-                    pokemon_stats['attack'] += 10
-                if pokemon_stats['defence'] < pokemon_stats['maxdefence']:
-                    pokemon_stats['defence'] += 10
+            while xp==xpneeded:
+                if xp==xpneeded:
+                    print(f"Your {basepoke} Has Leveled Up")
+                    xp = xp - xpneeded
+                    xpneeded += 10
+                    if pokemon_stats['hp'] < pokemon_stats['maxhp']:
+                        pokemon_stats['hp'] += 10
+                    if pokemon_stats['attack'] < pokemon_stats['maxattack']:
+                        pokemon_stats['attack'] += 10
+                    if pokemon_stats['defence'] < pokemon_stats['maxdefence']:
+                        pokemon_stats['defence'] += 10
                     pokemon_stats['health'] = pokemon_stats['hp']
                     pokemon_stats['level'] += 1
                     print(f"{basepoke} has been leveled up to level {pokemon_stats['level']}")
@@ -331,5 +504,110 @@ while True:
                     print("Max Defence:", pokemon_stats["maxdefence"])
                     print("Special:", pokemon_stats["special"])
                     print("Health:", pokemon_stats["health"])
+        if freechoice == "3":
+            if wandermax <= 10:
+              wanderingoptions = ["you found 5 coins on the ground", "you found a card for 7 energy", "you found a boost for 1 attack"]
+              wanderoptions = random.choice(wanderingoptions)
+              print(f"While wandering around {wanderoptions}")
+              if wanderoptions == "you found 5 coins on the ground":
+                coins += 5
+                print(f"You have {coins} coins")
+                wandermax += 1
+              elif wanderoptions == "you found a card for 7 energy":
+                baseenergyamount += 7
+                print(f"You have {playerenergy} energy")
+                wandermax += 1
+              else:
+                print(f"You have {pokemon_stats['attack']} attack")
+                pokemon_stats['attack'] += 1
+                wandermax += 1
+            else:
+              print("You Feel Tired And You Cant Wander Anymore")
+              continue
+        if freechoice == "4":
+            choice4 = input("You walk into town and find 3 shops (Attack shop,  potoion shop,  Wander shop): ").lower()
+            if choice4 == "attackshop" or choice4 == "attack shop":
+              choice6 = input("Do you want to buy plus 10 attack for 100 coins (y/n)").lower()
+              if choice6 == "y":
+                if coins >= 100 and pokemon_stats["attack"] < pokemon_stats["maxattack"]:
+                    pokemon_stats["attack"] += 10
+                    coins -= 100
+                    print(f"You have {pokemon_stats['attack']} attack")
+                else:
+                    print("You Cannot Afford This Or You Are Allready At Max Attack")
+              elif choice6 == "n":
+                print("Okay")
+                continue
+              else:
+                print("Not an option")
+                continue
+            elif choice4 == "potionshop" or choice4 == "potion shop":
+                choice8 = input(f"Do you want to spend 10 coins to buy 1 potion you have {coins} (y/n)")
+                if choice8 == "y":
+                    if coins >= 10:
+                        potions += 1
+                        coins -= 10
+                        print(f"Okay, You have bought one potion you now have {potions} potion(s)")
+                    else:
+                        print("You Dont Have Enough Coins")
+                elif choice8 == "n":
+                    print("Okay")
+                    continue
+            elif choice4 == "wandershop" or choice4 == "wander shop":
+                choice7 = input(f"Do you want to spend 50 coins to reset your wander count you have {coins} (y/n)").lower()
+                if choice7 == "y":
+                    if coins >= 50:
+                        print("Okay, you now Can Wander Again")
+                        coins -= 50
+                        wandermax = 0
+                        continue
+                    else:
+                        print("You Dont Have Enough Coins")
+                        continue
+                elif choice7 == "n":
+                    print("Okay")
+                    continue
+                else:
+                    print("Not an option")
+                    continue
+            else:
+              print("Not an option")
+              continue
+        if freechoice == "5":
+            print("Pokemon stats:")
+            print("HP:", pokemon_stats["hp"])
+            print("Max HP:", pokemon_stats["maxhp"])
+            print("Attack:", pokemon_stats["attack"])
+            print("Max Attack:", pokemon_stats["maxattack"])
+            print("Defence:", pokemon_stats["defence"])
+            print("Max Defence:", pokemon_stats["maxdefence"])
+            print("Special:", pokemon_stats["special"])
+            print("Health:", pokemon_stats["health"])
+            print("Stage:", pokemon_stats["stage"])
+            print(f"You have {coins} coins and {playerenergy} energy")
+
+        if freechoice == "6":
+            print("Now you have the freedom to explore Kanto in its full beauty")
+            input("Press Enter to continue...")
+            print("You can type (1. for upgrading your pokemon)")
+            input("Press Enter to continue...")
+            print("Press (2. To explore shops and equip your pokemon)")
+            input("Press Enter to continue...")
+            print("Press (3. To go to the arena and fight a pokemon)")
+            input("Press Enter to continue...")
+            print("Press (4. Wander around)")
+            input("Press Enter to continue...")
+            print("Press (5. To check your stats)")
+            input("Press Enter to continue...")
+            print("Press (6. For help)")
+            input("Press Enter to continue...")
+            print("Press (7. To save and exit)")
+        if freechoice == "7":
+            print("Bye")
+            break
     break
+print("Thanks for playing Pokemon Light!")
+print(f"Your final stats: HP: {pokemon_stats['hp']}, Max HP: {pokemon_stats['maxhp']}, Attack: {pokemon_stats['attack']}, Max Attack: {pokemon_stats['maxattack']}, Defence: {pokemon_stats['defence']}, Max Defence: {pokemon_stats['maxdefence']}, Special: {pokemon_stats['special']}")
+print("You collected", coins, "coins in total.")
+
         
