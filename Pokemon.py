@@ -56,9 +56,9 @@ while True:
 basepokechoice = ["Charmander", "charmander", "bulbasaur", "Bulbasaur", "squirtle", "Squirtle"]
 baseenergyamount = 5
 
-json_Charmander = '{"hp": 39, "maxhp": 282, "attack": 52, "maxattack": 223, "defence": 43, "maxdefence": 203, "special": "ember", "level": 5, "health": 39, "stage": 5, "type": "fire"}'
-json_Bulbasaur = '{"hp": 32, "maxhp": 276, "attack": 50, "maxattack": 210, "defence": 41, "maxdefence": 203, "special": "vine whip", "level": 5, "health": 32, "stage": 5, "type": "grass"}'
-json_Squirtle = '{"hp": 35, "maxhp": 273, "attack": 51, "maxattack": 220, "defence": 42, "maxdefence": 203, "special": "water cannon", "level": 5, "health": 35, "stage": 5, "type": "water"}'
+json_Charmander = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "ember", "level": 5, "health": 55, "stage": 5, "type": "fire"}'
+json_Bulbasaur = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "vine whip", "level": 5, "health": 55, "stage": 5, "type": "grass"}'
+json_Squirtle = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "water cannon", "level": 5, "health": 55, "stage": 5, "type": "water"}'
 
 while True:
     basepoke = input("Choose your first Pokemon (Charmander, Bulbasaur, Squirtle): ").lower()
@@ -238,20 +238,20 @@ while True:
                 if basepoke == "Warturtke":
                     print("Your Warturtle Has Evolved Into A Blastoise")
                     basepoke = "Blastoise"
-            if pokemon_stats['level'] < 8 or basepoke == "Charzard" or basepoke == "Venusaur" or basepoke == "Blastoise":
+            if pokemon_stats['level'] < 18 or basepoke == "Charzard" or basepoke == "Venusaur" or basepoke == "Blastoise":
                 print("You Cannot Evolve")
         if freechoice == "2":
 
             pokemonchoicefree = ["tepig", "kyogre", "sneasler", "poliwhirl"]
             computerrandpoke = random.choice(pokemonchoicefree)
-            tepighealth = 80
-            tepigattack = 35
-            kygorehealth = 130
-            kygoreattack = 30
-            sneaslerhealth = 120
-            sneaslerattack = 30
-            poliwhirlhealth = 90
-            poliwhirlattack = 30
+            tepighealth = (80*pokemon_stats["level"])/6
+            tepigattack = (35*pokemon_stats["level"])/10
+            kygorehealth = (130*pokemon_stats["level"])/6
+            kygoreattack = (30*pokemon_stats["level"])/10
+            sneaslerhealth = (120*pokemon_stats["level"])/6
+            sneaslerattack = (30*pokemon_stats["level"])/10
+            poliwhirlhealth = (90*pokemon_stats["level"])/6
+            poliwhirlattack = (30*pokemon_stats["level"])/10
             print(f"You Go Into The Arena And A Trainer With A {computerrandpoke} Challenges You")
             if computerrandpoke == "tepig":
                 while True:
@@ -279,7 +279,7 @@ while True:
                     if tepighealth <= 0:
                         print("You defeated tepig! Congratulations!")
                         coins += 10
-                        xp += 10
+                        xp += (10*pokemon_stats["level"])/2
                         temp = 0
                         break
 
@@ -334,7 +334,7 @@ while True:
                     if kygorehealth <= 0:
                         print(f"You defeated {computerrandpoke}! Congratulations!")
                         coins += 10
-                        xp += 40
+                        xp += (40*pokemon_stats["level"])/6
                         temp = 0
                         break
 
@@ -389,7 +389,7 @@ while True:
                     if sneaslerhealth <= 0:
                         print(f"You defeated {computerrandpoke}! Congratulations!")
                         coins += 10
-                        xp += 20
+                        xp += (20*pokemon_stats["level"])/3
                         temp = 0
                         break
 
@@ -444,7 +444,7 @@ while True:
                     if poliwhirlhealth <= 0:
                         print(f"You defeated {computerrandpoke}! Congratulations!")
                         coins += 10
-                        xp += 30
+                        xp += (30*pokemon_stats["level"])/5
                         temp = 0
                         break
 
@@ -481,8 +481,8 @@ while True:
             else:
                 print(f"Sorry, you lost your first battle and now have {coins} coins")
                 pokemon_stats["health"] = pokemon_stats['hp']
-            while xp==xpneeded:
-                if xp==xpneeded:
+            while xp >= xpneeded:
+                if xp >= xpneeded:
                     print(f"Your {basepoke} Has Leveled Up")
                     xp = xp - xpneeded
                     xpneeded += 10
@@ -587,15 +587,13 @@ while True:
             print(f"You have {coins} coins and {playerenergy} energy")
 
         if freechoice == "6":
-            print("Now you have the freedom to explore Kanto in its full beauty")
+            print("You can type (1. for evolving your pokemon)")
             input("Press Enter to continue...")
-            print("You can type (1. for upgrading your pokemon)")
+            print("Press (2. To go to the arena and fight a pokemon)")
             input("Press Enter to continue...")
-            print("Press (2. To explore shops and equip your pokemon)")
+            print("Press (3. Wander around)")
             input("Press Enter to continue...")
-            print("Press (3. To go to the arena and fight a pokemon)")
-            input("Press Enter to continue...")
-            print("Press (4. Wander around)")
+            print("Press (4. To Explore The Shops)")
             input("Press Enter to continue...")
             print("Press (5. To check your stats)")
             input("Press Enter to continue...")
