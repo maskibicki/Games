@@ -1,0 +1,86 @@
+[
+    {
+        "name": "Charmander",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "ember"
+        ],
+        "level": 5,
+        "type": "fire",
+        "starter_pokemon": true        
+    },
+    {
+        "name": "Bulbasaur",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "vine_whip"
+        ],
+        "level": 5,
+        "type": "grass",
+        "starter_pokemon": true        
+    },
+    {
+        "name": "Squirtle",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "water_cannon"
+        ],
+        "level": 5,
+        "type": "water",
+        "starter_pokemon": true        
+    },
+    {
+        "name": "Rattata",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "scratch"
+        ],
+        "level": 5,
+        "type": "normal",
+        "starter_pokemon": false        
+    },
+    {
+        "name": "Psyduck",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "psybeam"
+        ],
+        "level": 5,
+        "type": "water",
+        "starter_pokemon": false        
+    },
+    {
+        "name": "Pidove",
+        "current_hp": 50,
+        "max_hp": 50,
+        "hp_per_level": 10,
+        "attack": 50,
+        "attack_per_level": 10,
+        "attacks": [
+            "peck"
+        ],
+        "level": 5,
+        "type": "flying",
+        "starter_pokemon": false        
+    }
+]

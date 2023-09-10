@@ -1,0 +1,70 @@
+[
+    {
+        "name": "fire",
+        "weak": [
+            "water",
+            "ground",
+            "rock"
+        ],
+        "strong": [
+            "fire",
+            "grass",
+            "ice",
+            "bug",
+            "steel",
+            "fairy"
+        ]
+
+    },
+    {
+        "name": "water",
+        "weak": [
+            "electric",
+            "grass"
+        ],
+        "strong": [
+            "fire",
+            "water",
+            "ice",
+            "steel"
+        ]
+    },
+    {
+        "name": "grass",
+        "weak": [
+            "fire",
+            "ice",
+            "poison",
+            "flying",
+            "bug"
+        ],
+        "strong": [
+            "water",
+            "electric",
+            "grass",
+            "ground"
+        ]
+    },
+    {
+        "name": "normal",
+        "weak": [
+            "fighting"
+        ],
+        "strong": [
+
+        ]
+    },
+    {
+        "name": "flying",
+        "weak": [
+            "electric",
+            "ice",
+            "rock"
+        ],
+        "strong": [
+            "grass",
+            "fighting",
+            "bug"
+        ]
+    }
+]
