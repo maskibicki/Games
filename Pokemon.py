@@ -4,6 +4,25 @@ import time
 
 number = random.randint(1, 2)
 
+base_attack_data = []
+base_pokemon_data = []
+base_type_data = []
+
+def load_game_data():
+    print("load attacks")
+    file = open("data/all_attacks.json", "r")
+    base_attack_data = json.load(file)
+    print(base_attack_data)
+    file.close()
+    
+    print("load pokemon")
+    with open("data/all_pokemon.json", "r") as file:
+        base_pokemon_data = json.load(file)
+    
+    print("load types")
+    with open("data/all_types.json", "r") as file:
+        base_type_data = json.load(file)
+
 
 def save_game_state(filename, player_name, coins, stageprice, level, temp,
                     wandermax):
@@ -34,6 +53,17 @@ def extract_key_value(json_data, key):
     return data[key]
   except:
     return None
+
+load_game_data()
+
+
+print("hi")
+print(base_attack_data)
+
+print("bye")
+
+exit(0)
+
 
 print("There Is A Poll Avaliable For Voting On What Should Be Added Next. Go To https://forms.gle/hCS6tn3yFeqL2xD16. Loading Game...")
 time.sleep(10)
