@@ -4,12 +4,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "ember"
         ],
         "level": 5,
+        "experience": 0,
         "type": "fire",
         "starter_pokemon": true        
     },
@@ -18,12 +20,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "vine_whip"
         ],
         "level": 5,
+        "experience": 0,
         "type": "grass",
         "starter_pokemon": true        
     },
@@ -32,12 +36,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "water_cannon"
         ],
         "level": 5,
+        "experience": 0,
         "type": "water",
         "starter_pokemon": true        
     },
@@ -46,12 +52,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "scratch"
         ],
         "level": 5,
+        "experience": 0,
         "type": "normal",
         "starter_pokemon": false        
     },
@@ -60,12 +68,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "psybeam"
         ],
         "level": 5,
+        "experience": 0,
         "type": "water",
         "starter_pokemon": false        
     },
@@ -74,12 +84,14 @@
         "current_hp": 50,
         "max_hp": 50,
         "hp_per_level": 10,
+        "energy": 5,
         "attack": 50,
         "attack_per_level": 10,
         "attacks": [
             "peck"
         ],
         "level": 5,
+        "experience": 0,
         "type": "flying",
         "starter_pokemon": false        
     }
