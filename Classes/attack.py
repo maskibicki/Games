@@ -15,5 +15,5 @@ class Attack(BaseModel):
     @classmethod
     def name_must_contain_space(cls, v: str) -> str:
         if v not in ["damage"]:
-            raise ValueError("effect %s not a known effect" % ( v ) )
+            raise ValueError(f"effect {v} not a known effect")
         return v.title()

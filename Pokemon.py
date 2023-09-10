@@ -29,7 +29,6 @@ def load_game_data():
     with open("data/all_types.json", "r") as file:
         base_type_data = [PokeType(**pt) for pt in json.load(file)]
 
-
 def save_game_state(filename, player_name, coins, stageprice, level, temp,
                     wandermax):
   data = {
@@ -43,7 +42,6 @@ def save_game_state(filename, player_name, coins, stageprice, level, temp,
   with open(filename, "w") as file:
     json.dump(data, file)
 
-
 def load_game_state(filename):
   try:
     with open(filename, "r") as file:
@@ -51,7 +49,6 @@ def load_game_state(filename):
       return data
   except FileNotFoundError:
     return None
-
 
 def extract_key_value(json_data, key):
   try:
@@ -61,9 +58,6 @@ def extract_key_value(json_data, key):
     return None
 
 load_game_data()
-
-## charmander = Pokemon(**next(p for p in base_pokemon_data if p["name"] == "Charmander"))  ## Pydantic is cool, so are list comprehensions.
-## print(charmander)
 
 # print("There Is A Poll Avaliable For Voting On What Should Be Added Next. Go To https://forms.gle/hCS6tn3yFeqL2xD16. Loading Game...")
 # time.sleep(10)
@@ -93,52 +87,31 @@ basepokechoice = [
 ]
 baseenergyamount = 5
 
-json_Charmander = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "ember", "level": 5, "health": 55, "stage": 5, "type": "fire"}'
-json_Bulbasaur = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "vine whip", "level": 5, "health": 55, "stage": 5, "type": "grass"}'
-json_Squirtle = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "water cannon", "level": 5, "health": 55, "stage": 5, "type": "water"}'
-
 while True:
-  starter_pokemon = [p.name for p in base_pokemon_data if p.starter_pokemon == True]  
-  
-  print("Select your starter pokemon:")
-  for pokemon in starter_pokemon:
-      print(pokemon)
-  basepoke = ""
-  basepoke = input(
-    "Choose your first Pokemon (Charmander, Bulbasaur, Squirtle): ").lower()
-  if basepoke.lower() in [sp.lower() for sp in starter_pokemon]:
-      player.pokemon.append((next(p for p in base_pokemon_data if p.name.lower() == basepoke.lower())))
-  else: 
-      print("Not an option, try again")
+    starter_pokemon = [p.name for p in base_pokemon_data if p.starter_pokemon == True]  
 
-  print(player)       
-  if basepoke in basepokechoice:
-    if basepoke == "charmander" or basepoke == "Charmander":
-      playerenergy = (f"Fire {baseenergyamount}").upper()
-      pokemon_stats = json.loads(json_Charmander)
-    elif basepoke == "Bulbasaur" or basepoke == "bulbasaur":
-      playerenergy = (f"Grass {baseenergyamount}").upper()
-      pokemon_stats = json.loads(json_Bulbasaur)
-    elif basepoke == "Squirtle" or basepoke == "squirtle":
-      playerenergy = (f"Water {baseenergyamount}").upper()
-      pokemon_stats = json.loads(json_Squirtle)
-    break
-  else:
-    print("Not an option, try again")
-    continue
+    print("You can select one of these as your starter pokemon:")
 
-print("Your first Pokémon is:", basepoke.upper())
+    for pokemon in starter_pokemon: print(pokemon)
+
+    basepoke = input("Choose One: ").lower()
+    if basepoke in [sp.lower() for sp in starter_pokemon]:
+        player.pokemon.append((next(p for p in base_pokemon_data if p.name.lower() == basepoke)))
+        playerenergy = f"{player.pokemon[0].type} {baseenergyamount}"
+        print(player)
+        break
+    else: 
+        print("Not an option, try again")
+        continue
+
+print("Your first Pokémon is:", player.pokemon[0].name)
 print("Player's energy:", playerenergy)
 print("Pokemon stats:")
-print("HP:", pokemon_stats["hp"])
-print("Max HP:", pokemon_stats["maxhp"])
-print("Attack:", pokemon_stats["attack"])
-print("Max Attack:", pokemon_stats["maxattack"])
-print("Defence:", pokemon_stats["defence"])
-print("Max Defence:", pokemon_stats["maxdefence"])
-print("Special:", pokemon_stats["special"])
-print("Health:", pokemon_stats["health"])
-print("Type:", pokemon_stats["type"])
+print("Current HP:", player.pokemon[0].current_hp)
+print("Max HP:", player.pokemon[0].max_hp)
+print("Attack:", player.pokemon[0].attack)
+print("Special:", player.pokemon[0].attacks[0])
+print("Type:", player.pokemon[0].type)
 
 choices = [
   "attack", "Attack", "Defend", "Heal", "Run", "defend", "heal", "run"
