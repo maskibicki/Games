@@ -4,7 +4,7 @@
         "damage_multiplyer": 1,
         "type": "normal",
         "effect": "damage"
-    }
+    },
     {
         "name": "scratch",
         "damage_multiplyer": 1,
