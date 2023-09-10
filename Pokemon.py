@@ -3,6 +3,8 @@ import random
 import time
 from Classes.pokemon import Pokemon
 from Classes.player import Player
+from Classes.attack import Attack
+from Classes.type import PokeType
 
 number = random.randint(1, 2)
 
@@ -17,15 +19,15 @@ def load_game_data():
 
     print("load attacks")
     with open("data/all_attacks.json", "r") as file:
-        base_attack_data = json.load(file)
+        base_attack_data = [Attack(**a) for a in json.load(file)]
     
     print("load pokemon")
     with open("data/all_pokemon.json", "r") as file:
-        base_pokemon_data = json.load(file)
+        base_pokemon_data = [Pokemon(**p) for p in json.load(file)]
     
     print("load types")
     with open("data/all_types.json", "r") as file:
-        base_type_data = json.load(file)
+        base_type_data = [PokeType(**pt) for pt in json.load(file)]
 
 
 def save_game_state(filename, player_name, coins, stageprice, level, temp,
@@ -66,26 +68,8 @@ load_game_data()
 # print("There Is A Poll Avaliable For Voting On What Should Be Added Next. Go To https://forms.gle/hCS6tn3yFeqL2xD16. Loading Game...")
 # time.sleep(10)
 print("Welcome to Pokemon Light")
-name = input("What is your name: ")
-coins = 5
-totalcoins=5
-stageprice = 5
-level = 5
-temp = 0
-pokeballs = 20
-wandermax = 0
-xp = 0
-second = "None"
-third = "None"
-fourth = "None"
-fourthxp = 0
-fourthxpneeded=10
-secondxp = 0
-potions = 5
-thirdxp=0
-thirdxpneeded=10
-xpneeded = 10
-secondxpneeded = 10
+player = Player()
+player.name = input("What is your name: ")
 print("Welcome to the world of Pokemon")
 input("Press Enter to continue...")
 print("My name is Oak, but people call me the Pokemon Professor")
@@ -114,7 +98,7 @@ json_Bulbasaur = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defe
 json_Squirtle = '{"hp": 55, "maxhp": 300, "attack": 52, "maxattack": 300, "defence": 55, "maxdefence": 300, "special": "water cannon", "level": 5, "health": 55, "stage": 5, "type": "water"}'
 
 while True:
-  starter_pokemon = [p["name"] for p in base_pokemon_data if p["starter_pokemon"] == True]  
+  starter_pokemon = [p.name for p in base_pokemon_data if p.starter_pokemon == True]  
   
   print("Select your starter pokemon:")
   for pokemon in starter_pokemon:
@@ -123,10 +107,11 @@ while True:
   basepoke = input(
     "Choose your first Pokemon (Charmander, Bulbasaur, Squirtle): ").lower()
   if basepoke.lower() in [sp.lower() for sp in starter_pokemon]:
-      print("good choice")
+      player.pokemon.append((next(p for p in base_pokemon_data if p.name.lower() == basepoke.lower())))
   else: 
-      print("boo")
-       
+      print("Not an option, try again")
+
+  print(player)       
   if basepoke in basepokechoice:
     if basepoke == "charmander" or basepoke == "Charmander":
       playerenergy = (f"Fire {baseenergyamount}").upper()
