@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 class Pokemon(BaseModel):
     name: str
+    status: str = "normal"
     current_hp: int = 50
     max_hp: int = 50
     hp_per_level: int = 10
@@ -14,3 +15,4 @@ class Pokemon(BaseModel):
     experience_to_level: int = 10
     type: str
     starter_pokemon: bool = False
+    legendary_pokemon: bool = False

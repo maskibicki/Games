@@ -1,36 +1,26 @@
 import json
 import random
-import time
 from Classes.pokemon import Pokemon
 from Classes.player import Player
 from Classes.attack import Attack
 from Classes.type import PokeType
+from Functions.load_game_data import load_game_data
+from Functions.pokemon_battle import pokemon_battle
 
 number = random.randint(1, 2)
 
-base_attack_data = []
-base_pokemon_data = []
-base_type_data = []
-
-def load_game_data():
-    global base_attack_data
-    global base_pokemon_data
-    global base_type_data
-
-    print("load attacks")
-    with open("data/all_attacks.json", "r") as file:
-        base_attack_data = [Attack(**a) for a in json.load(file)]
+def print_pokemon_stats(pokemon):
+    print("HP:", pokemon["hp"])
+    print("Max HP:", pokemon["maxhp"])
+    print("Attack:", pokemon["attack"])
+    print("Max Attack:", pokemon["maxattack"])
+    print("Defence:", pokemon["defence"])
+    print("Max Defence:", pokemon["maxdefence"])
+    print("Special:", pokemon["special"])
+    print("Health:", pokemon["health"])
+    print("Type:", pokemon["type"])
     
-    print("load pokemon")
-    with open("data/all_pokemon.json", "r") as file:
-        base_pokemon_data = [Pokemon(**p) for p in json.load(file)]
-    
-    print("load types")
-    with open("data/all_types.json", "r") as file:
-        base_type_data = [PokeType(**pt) for pt in json.load(file)]
-
-def save_game_state(filename, player_name, coins, stageprice, level, temp,
-                    wandermax):
+def save_game_state(filename, player_name, coins, stageprice, level, temp, wandermax):
   data = {
     "player_name": player_name,
     "coins": coins,
@@ -57,7 +47,7 @@ def extract_key_value(json_data, key):
   except:
     return None
 
-load_game_data()
+base_attack_data, base_pokemon_data, base_type_data = load_game_data()
 
 # print("There Is A Poll Avaliable For Voting On What Should Be Added Next. Go To https://forms.gle/hCS6tn3yFeqL2xD16. Loading Game...")
 # time.sleep(10)
@@ -70,9 +60,7 @@ print("My name is Oak, but people call me the Pokemon Professor")
 input("Press Enter to continue...")
 print("This world is inhabited by creatures called Pokemon")
 input("Press Enter to continue...")
-print(
-  "For some people, Pokemon are pets, but for others, Pokemon are used to fight"
-)
+print("For some people, Pokemon are pets, but for others, Pokemon are used to fight")
 while True:
   rivalname = input(
     "This Is Your Friend They Are Your Neighbor. What Is Their Name? ")
@@ -97,7 +85,6 @@ while True:
     basepoke = input("Choose One: ").lower()
     if basepoke in [sp.lower() for sp in starter_pokemon]:
         player.pokemon.append((next(p for p in base_pokemon_data if p.name.lower() == basepoke)))
-        playerenergy = f"{player.pokemon[0].type} {baseenergyamount}"
         print(player)
         break
     else: 
@@ -105,7 +92,6 @@ while True:
         continue
 
 print("Your first Pokémon is:", player.pokemon[0].name)
-print("Player's energy:", playerenergy)
 print("Pokemon stats:")
 print("Current HP:", player.pokemon[0].current_hp)
 print("Max HP:", player.pokemon[0].max_hp)
@@ -113,9 +99,6 @@ print("Attack:", player.pokemon[0].attack)
 print("Special:", player.pokemon[0].attacks[0])
 print("Type:", player.pokemon[0].type)
 
-choices = [
-  "attack", "Attack", "Defend", "Heal", "Run", "defend", "heal", "run"
-]
 rattatahealth = 60
 
 firstfight = True

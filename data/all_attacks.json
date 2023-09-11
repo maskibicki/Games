@@ -1,37 +1,31 @@
 [
     {
         "name": "peck",
-        "damage_multiplyer": 1,
         "type": "normal",
         "effect": "damage"
     },
     {
         "name": "scratch",
-        "damage_multiplyer": 1,
         "type": "normal",
         "effect": "damage"
     },
     {
         "name": "psybeam",
-        "damage_multiplyer": 1,
         "type": "psychic",
         "effect": "damage"
     },
     {
         "name": "water_cannon",
-        "damage_multiplyer": 1,
         "type": "water",
         "effect": "damage"
     },
     {
         "name": "vine_whip",
-        "damage_multiplyer": 1,
         "type": "grass",
         "effect": "damage"
     },
     {
         "name": "ember",
-        "damage_multiplyer": 1,
         "type": "fire",
         "effect": "damage"
     }

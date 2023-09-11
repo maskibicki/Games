@@ -1,0 +1,21 @@
+[
+    {
+        "name": "knocked_out"
+    },
+    {
+        "name": "confused"
+    },
+    {
+        "name": "asleep",
+        "effect": "skip_turn",
+        "value": 3
+    },
+    {
+        "name": "burned",
+        "effect": "damage",
+        "value": 5
+    },
+    {
+        "name": "normal"
+    }
+]

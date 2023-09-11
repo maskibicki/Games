@@ -66,5 +66,19 @@
             "fighting",
             "bug"
         ]
+    },
+    {
+        "name": "dragon",
+        "weak": [
+            "ice",
+            "dragon",
+            "fairy"
+        ],
+        "strong": [
+            "fire",
+            "water",
+            "electric",
+            "grass"
+        ]
     }
 ]

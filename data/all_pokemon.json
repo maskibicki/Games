@@ -43,5 +43,18 @@
             "peck"
         ],
         "type": "flying"
+    },
+    {
+        "name": "Rayqueza",
+        "attacks": [
+            "peck",
+            "scratch",
+            "water_cannon",
+            "ember",
+            "vine_whip",
+            "psybeam"
+        ],
+        "type": "dragon",
+        "legendary_pokemon": true
     }
 ]
